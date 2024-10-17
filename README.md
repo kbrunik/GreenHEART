@@ -2,9 +2,9 @@
 
 ## GreenHEART: Green Hydrogen Energy and Renewable Technologies
 
-[![PyPI version](https://badge.fury.io/py/greeheart.svg)](https://badge.fury.io/py/greenheart)
-![CI Tests](https://github.com/NREL/GreenHEART/actions/workflows/ci.yml/badge.svg)
-[![image](https://img.shields.io/pypi/pyversions/greeheart.svg)](https://pypi.python.org/pypi/greeheart)
+[![PyPI version](https://badge.fury.io/py/GreenHEART.svg)](https://badge.fury.io/py/GreenHEART)
+[CI Tests](https://github.com/NREL/GreenHEART/actions/workflows/ci.yml/badge.svg)
+[![image](https://img.shields.io/pypi/pyversions/GreenHEART.svg)](https://pypi.python.org/pypi/GreenHEART)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 Hybrid project power-to-x component-level system performance and financial modeling for control and
