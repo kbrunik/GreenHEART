@@ -58,8 +58,6 @@ dependencies = [
     "utm",
     "HOPP",
     "orbit-nrel>=1.1",
-    "electrolyzer @ git+https://github.com/jaredthomas68/electrolyzer.git@smoothing",
-    "ProFAST @ git+https://github.com/NREL/ProFAST.git",
     "openmdao[all]",
 ]
 keywords = [

@@ -51,6 +51,8 @@ included as needed.
 
     ```bash
     conda install -y -c conda-forge coin-or-cbc=2.10.8 glpk
+    pip install electrolyzer@git+https://github.com/jaredthomas68/electrolyzer.git@smoothing
+    pip install ProFAST@git+https://github.com/NREL/ProFAST.git
     ```
 
     Note if you are on Windows, you will have to manually install Cbc: https://github.com/coin-or/Cbc.
