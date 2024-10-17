@@ -3,7 +3,7 @@ requires = ["setuptools", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "GreenHEART"
+name = "greenheart"
 dynamic = ["version"]
 authors = [{name = "NREL", email = "dguittet@nrel.gov"}]
 readme = {file = "README.md", content-type = "text/markdown"}
@@ -108,6 +108,7 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 include = [
+    "greenheart",
     "hydrogen/h2_transport/data_tables/*.csv",
 ]
 
