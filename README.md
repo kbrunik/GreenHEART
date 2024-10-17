@@ -15,7 +15,7 @@ included as needed.
 
 ## Software requirements
 
-- Python version 3.8, 3.9, 3.10 64-bit
+- Python version 3.9, 3.10, 3.11 64-bit
 - Other versions may still work, but have not been extensively tested at this time
 
 ## Installing from Package Repositories
@@ -105,7 +105,7 @@ included as needed.
    the `.env` file method, the file should go in the working directory of your Python project, e.g.
    directory from where you run `python`.
 
-## Parallel Processing for GreenHEART finite differences and design of experiments
+## Parallel processing for GreenHEART finite differences and design of experiments
 
 GreenHEART is set up to run in parallel using MPI and PETSc for finite differencing and for design of
 experiments runs through OpenMDAO. To use this capability you will need to follow the addtional installation
