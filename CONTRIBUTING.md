@@ -21,8 +21,8 @@ GitHub repo. Feel free to tackle any existing bugs or enhancement ideas by submi
 * Docstrings are required and should follow the
   [Google style](https://www.sphinx-doc.org/en/master/usage/extensions/example_google.html).
 * When you start working on a pull request, start by creating a new branch pointing at the latest
-  commit on [main](https://github.com/NREL/HOPP).
-* The HOPP copyright policy is detailed in the [`LICENSE`](https://github.com/NREL/HOPP/blob/main/LICENSE).
+  commit on [main](https://github.com/NREL/GreenHEART).
+* The GreenHEART copyright policy is detailed in the [`LICENSE`](https://github.com/NREL/GreenHEART/blob/main/LICENSE).
 
 ## Documentation
 
