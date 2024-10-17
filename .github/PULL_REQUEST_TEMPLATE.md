@@ -68,9 +68,9 @@ failing test cases.
 <!--
 __ For NREL use __
 Release checklist:
-- Update the version in
-    - [ ] README.md
-    - [ ] hopp/VERSION
+- [ ] Update the version in greenheart/__init__.py
 - [ ] Verify docs builds correctly
-- [ ] Create a tag in the NREL/HOPP repository
+- [ ] Create a tag on the main branch in the NREL/GreenHEART repository and push
+- [ ] Ensure the Test PyPI build is successful
+- [ ] Create a release on the main branch
 -->

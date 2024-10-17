@@ -1,5 +1,5 @@
 package:
-    name: hopp
+    name: greenheart
     version: {{ environ.get('GIT_DESCRIBE_TAG','').replace('v', '', 1) }}
 
 source:
@@ -50,8 +50,8 @@ requirements:
     - global_land_mask
 
 about:
-  home: "https://github.com/NREL/HOPP"
+  home: "https://github.com/NREL/GreenHEART"
   license: BSD 3-Clause
-  summary: "Hybrid Systems Optimization and Performance Platform"
+  summary: "Green Hydrogen Energy and Renewable Technologies"
   doc_url: "https://www.nrel.gov/wind/hybrid-energy-systems-research.html"
-  dev_url: "https://github.com/NREL/HOPP"
+  dev_url: "https://github.com/NREL/GreenHEART"

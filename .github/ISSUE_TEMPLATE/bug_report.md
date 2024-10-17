@@ -55,13 +55,13 @@ code as text rather than screenshots.
 Include any output, plots, or other means of communication here to add context to the problem.
  -->
 
-## HOPP version
+## GreenHEART version
 <!--
-Share your HOPP version and how you installed it. You can print the HOPP version from
+Share your GreenHEART version and how you installed it. You can print the GreenHEART version from
 a Python REPL or script with these commands:
 ```python
-import hopp
-print(hopp.__version__)
+import greenheart
+print(greenheart.__version__)
 ```
  -->
 
@@ -69,9 +69,9 @@ print(hopp.__version__)
 <!-- Add your information here. -->
  - OS: <e.g. Ubuntu 20.04 or macOS 10.12>
  - Python version: <Result of `python --version`>
- - Library versions
-   - Results of `pip freeze`, for example
+ - Relevant library versions, from the results of `pip freeze`, for example:
    - FLORIS
+   - HOPP
    - matplotlib
    - NREL-PySAM
    - numpy
