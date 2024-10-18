@@ -1,25 +1,22 @@
 # general imports
-import os
-
-# # yaml imports
-import yaml
 from pathlib import Path
 
-# HOPP imports
-from greenheart.simulation.greenheart_simulation import (
-    run_simulation,
-    GreenHeartSimulationConfig,
-)
+# GreenHEART imports
+from greenheart.simulation.greenheart_simulation import GreenHeartSimulationConfig
 from greenheart.tools.optimization.gc_run_greenheart import run_greenheart
+
+
+DATA_PATH = Path(__file__).parent / "input"
+
 
 # run the stuff
 if __name__ == "__main__":
     # load inputs as needed
     turbine_model = "lbw_6MW"
-    filename_turbine_config = "./input/turbines/" + turbine_model + ".yaml"
-    filename_floris_config = "./input/floris/floris_input_lbw_6MW.yaml"
-    filename_hopp_config = "./input/plant/hopp_config_tx.yaml"
-    filename_greenheart_config = "./input/plant/greenheart_config_onshore_tx.yaml"
+    filename_turbine_config = DATA_PATH / f"turbines/{turbine_model}.yaml"
+    filename_floris_config = DATA_PATH / "floris/floris_input_lbw_6MW.yaml"
+    filename_hopp_config = DATA_PATH / "plant/hopp_config_tx.yaml"
+    filename_greenheart_config = DATA_PATH / "plant/greenheart_config_onshore_tx.yaml"
 
     config = GreenHeartSimulationConfig(
         filename_hopp_config,
