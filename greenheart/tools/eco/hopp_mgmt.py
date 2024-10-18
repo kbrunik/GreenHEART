@@ -155,8 +155,8 @@ def setup_hopp(
         plt.figure(figsize=(9, 6))
         plt.plot(wind_speed)
         plt.title(
-            "Wind Speed (m/s) for selected location \n {} \n Average Wind Speed (m/s) {}".format(
-                "Gulf of Mexico", np.round(np.average(wind_speed), decimals=3)
+            "Wind Speed (m/s) for selected location \n Lat:{}, Lon: {} \n Average Wind Speed (m/s) {}".format(
+                hopp_config['site']['data']['lat'], hopp_config['site']['data']['lon'], np.round(np.average(wind_speed), decimals=3)
             )
         )
 
