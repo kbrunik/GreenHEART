@@ -13,9 +13,9 @@ from greenheart.simulation.greenheart_simulation import (
 from greenheart.tools.optimization.gc_run_greenheart import run_greenheart
 
 # ORBIT imports
-from ORBIT.core.library import initialize_library
+# from ORBIT.core.library import initialize_library
 
-initialize_library(os.path.join(os.getcwd(), "./input/"))
+# initialize_library(os.path.join(os.getcwd(), "./input/"))
 
 # run the stuff
 if __name__ == "__main__":

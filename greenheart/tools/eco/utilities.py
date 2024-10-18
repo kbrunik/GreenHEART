@@ -1,5 +1,6 @@
 import os
 import os.path
+from pathlib import Path
 import yaml
 import copy
 
@@ -30,6 +31,13 @@ The function was copied from https://stackoverflow.com/a/17511341/5128616
 def ceildiv(a, b):
     return -(a // -b)
 
+def convert_relative_to_absolute_path(config_filepath, resource_filepath):
+    if resource_filepath == "":
+        return ""
+    else:
+        abs_config_filepath = Path(config_filepath).absolute().parent
+        return os.path.join(abs_config_filepath, resource_filepath)
+
 # Function to load inputs
 def get_inputs(
     filename_hopp_config,
@@ -52,6 +60,12 @@ def get_inputs(
 
     # load eco inputs
     greenheart_config = load_yaml(filename_greenheart_config)
+
+    # convert relative filepath to absolute for HOPP ingestion
+    hopp_config['site']['solar_resource_file'] = convert_relative_to_absolute_path(filename_hopp_config, hopp_config['site']['solar_resource_file'])
+    hopp_config['site']['wind_resource_file'] = convert_relative_to_absolute_path(filename_hopp_config, hopp_config['site']['wind_resource_file'])
+    hopp_config['site']['wave_resource_file'] = convert_relative_to_absolute_path(filename_hopp_config, hopp_config['site']['wave_resource_file'])
+    hopp_config['site']['grid_resource_file'] = convert_relative_to_absolute_path(filename_hopp_config, hopp_config['site']['grid_resource_file'])
 
     ################ load plant inputs from yaml
     if filename_orbit_config != None:
@@ -1667,12 +1681,12 @@ def post_process_simulation(
             power_scale=1 / 1000,
             solar_color="r",
             wind_color="b",
-            wave_color="g",
+            # wave_color="g",
             discharge_color="b",
             charge_color="r",
             gen_color="g",
             price_color="r",
-            show_price=False,
+            # show_price=False,
         )
     else:
         print(
