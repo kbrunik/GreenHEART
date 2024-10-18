@@ -1,9 +1,7 @@
 # GreenHEART: Green Hydrogen Energy and Renewable Technologies
 
-## GreenHEART: Green Hydrogen Energy and Renewable Technologies
-
 [![PyPI version](https://badge.fury.io/py/GreenHEART.svg)](https://badge.fury.io/py/GreenHEART)
-[CI Tests](https://github.com/NREL/GreenHEART/actions/workflows/ci.yml/badge.svg)
+![CI Tests](https://github.com/NREL/GreenHEART/actions/workflows/ci.yml/badge.svg)
 [![image](https://img.shields.io/pypi/pyversions/GreenHEART.svg)](https://pypi.python.org/pypi/GreenHEART)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
@@ -91,7 +89,7 @@ King, J. and Hammond, S. "[Integrated Modeling, TEA, and Reference Design for Re
     - In one step, all dependencies can be installed as:
 
       ```bash
-      pip install -e ".[all]
+      pip install -e ".[all]"
       ```
 
 5. The functions which download resource data require an NREL API key. Obtain a key from:
