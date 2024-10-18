@@ -52,7 +52,7 @@ array_system_design:
   - XLPE_630mm_66kV_dynamic
 export_system_design:
   cables:
-  - XLPE_1000m_220kV_dynamic #HVAC
+  - XLPE_1000mm_220kV_dynamic #HVAC
   # - HVDC_2000mm_320kV_dynamic # HVDC lines
   percent_added_length: 0.1
 mooring_system_design:
