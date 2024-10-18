@@ -1,5 +1,5 @@
 # general imports
-import os
+from pathlib import Path
 
 # # yaml imports
 import yaml
@@ -15,17 +15,18 @@ from greenheart.tools.optimization.gc_run_greenheart import run_greenheart
 # ORBIT imports
 from ORBIT.core.library import initialize_library
 
-initialize_library(os.path.join(os.getcwd(), "./input/"))
+DATA_PATH = Path(__file__).parent / "input"
+initialize_library(DATA_PATH)
 
 # run the stuff
 if __name__ == "__main__":
     # load inputs as needed
     turbine_model = "osw_17MW"
-    filename_turbine_config = "./input/turbines/" + turbine_model + ".yaml"
-    filename_floris_config = "./input/floris/floris_input_osw_17MW.yaml"
-    filename_hopp_config = "./input/plant/hopp_config_gom.yaml"
-    filename_orbit_config = "./input/plant/orbit-config-" + turbine_model + "-gom.yaml"
-    filename_greenheart_config = "./input/plant/greenheart_config_offshore_gom.yaml"
+    filename_turbine_config = DATA_PATH / f"turbines/{turbine_model}.yaml"
+    filename_floris_config = DATA_PATH / "floris/floris_input_osw_17MW.yaml"
+    filename_hopp_config = DATA_PATH / "plant/hopp_config_gom.yaml"
+    filename_orbit_config = DATA_PATH / f"plant/orbit-config-{turbine_model}-gom.yaml"
+    filename_greenheart_config = DATA_PATH / "plant/greenheart_config_offshore_gom.yaml"
 
     config = GreenHeartSimulationConfig(
         filename_hopp_config=filename_hopp_config,
