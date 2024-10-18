@@ -1681,12 +1681,12 @@ def post_process_simulation(
             power_scale=1 / 1000,
             solar_color="r",
             wind_color="b",
-            wave_color="g",
+            # wave_color="g",
             discharge_color="b",
             charge_color="r",
             gen_color="g",
             price_color="r",
-            show_price=False,
+            # show_price=False,
         )
     else:
         print(
