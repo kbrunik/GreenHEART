@@ -1,15 +1,8 @@
 # general imports
 from pathlib import Path
 
-# # yaml imports
-import yaml
-from pathlib import Path
-
-# HOPP imports
-from greenheart.simulation.greenheart_simulation import (
-    run_simulation,
-    GreenHeartSimulationConfig,
-)
+# GreenHEART imports
+from greenheart.simulation.greenheart_simulation import GreenHeartSimulationConfig)
 from greenheart.tools.optimization.gc_run_greenheart import run_greenheart
 
 # ORBIT imports
