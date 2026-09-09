@@ -698,7 +698,7 @@ def test_plm_history(subtests, om_plant_config, om_tech_config):
         ]
     )
 
-    active          = p_discharge_coop_history > 0.5
+    active = p_discharge_coop_history > 0.5
     expected_active = expected_history > 0.5
     
     with subtests.test("total coop discharge energy matches"):
