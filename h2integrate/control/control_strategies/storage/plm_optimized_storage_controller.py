@@ -748,9 +748,13 @@ class PeakLoadManagementOptimizedStorageController(PyomoStorageControllerBaseCla
 
         if set_point_w is not None:
             # Cap dispatch at what the system actually needs/can absorb this timestep.
-            m.discharge_set_point_cap = pyomo.Constraint(
+            m.discharge_set_point_cap_gt = pyomo.Constraint(
                 m.T,
-                rule=lambda mdl, t: mdl.p_discharge[t] <= max(float(set_point_w[t]), 0.0),
+                rule=lambda mdl, t: mdl.p_discharge_gt[t] <= max(float(set_point_w[t]), 0.0),
+            )
+            m.discharge_set_point_cap_coop = pyomo.Constraint(
+                m.T,
+                rule=lambda mdl, t: mdl.p_discharge_coop[t] <= max(float(set_point_w[t]), 0.0),
             )
             m.charge_set_point_cap = pyomo.Constraint(
                 m.T,

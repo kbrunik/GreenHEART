@@ -370,9 +370,9 @@ def test_power_zero_when_binary_zero(subtests, base_config):
                 assert pd_gt < 1e-6, f"p_discharge_gt[{t}]={pd_gt} but discharge_gt[{t}]={u_gt}"
         with subtests.test(f"p_discharge_coop zero when binary zero at t={t}"):
             if u_coop < 0.5:
-                assert (
-                    pd_coop < 1e-6
-                ), f"p_discharge_coop[{t}]={pd_coop} but discharge_coop[{t}]={u_coop}"
+                assert pd_coop < 1e-6, (
+                    f"p_discharge_coop[{t}]={pd_coop} but discharge_coop[{t}]={u_coop}"
+                )
         with subtests.test(f"p_charge zero when binary zero at t={t}"):
             if v < 0.5:
                 assert p_c < 1e-6, f"p_charge[{t}]={p_c} but charge[{t}]={v}"
@@ -451,7 +451,9 @@ def test_optimizer_respects_set_point_cap(subtests):
         tech_name="battery",
         system_commodity_interface_limit=100.0,
         max_charge_rate=1.0,
-        supervisory_signal=list(range(n)),
+        lmp_signal=list(range(n)),
+        demand_signal=list(range(n)),
+        GnT_pricingfunction_coeffs=[1.05, 20],
         # Full-day peak window and zero-percentile threshold so the only binding
         # constraint under test is the new set-point cap, not eligibility.
         peak_window={"start": "00:00:00", "end": "23:59:59"},
@@ -476,15 +478,18 @@ def test_optimizer_respects_set_point_cap(subtests):
         set_point_w=set_point_w,
     )
 
-    PeakLoadManagementOptimizedStorageController.glpk_solve_call(model)
+    PeakLoadManagementOptimizedStorageController.pyomosolver_solve_call(model)
 
     for t in range(n):
-        p_discharge = pyomo.value(model.p_discharge[t])  # type: ignore[index]
+        p_discharge_gt = pyomo.value(model.p_discharge_gt[t])  # type: ignore[index]
+        p_discharge_coop = pyomo.value(model.p_discharge_coop[t])  # type: ignore[index]
         p_charge = pyomo.value(model.p_charge[t])  # type: ignore[index]
         cap_discharge = max(float(set_point_w[t]), 0.0)
         cap_charge = max(-float(set_point_w[t]), 0.0)
-        with subtests.test(f"discharge capped at t={t}"):
-            assert p_discharge <= cap_discharge + 1e-6
+        with subtests.test(f"discharge_gt capped at t={t}"):
+            assert p_discharge_gt <= cap_discharge + 1e-6
+        with subtests.test(f"discharge_coop capped at t={t}"):
+            assert p_discharge_coop <= cap_discharge + 1e-6
         with subtests.test(f"charge capped at t={t}"):
             assert p_charge <= cap_charge + 1e-6
 
@@ -622,9 +627,9 @@ def test_plm_optimized_controller_om_problem_soc_bounds(subtests, om_plant_confi
         expected_soc[t] = expected_soc[t - 1] + charge[t] / E_max - discharge[t] / E_max
     for t in range(n):
         with subtests.test(f"SOC evolution at t={t}"):
-            assert (
-                abs(soc[t] - expected_soc[t]) < 1e-4
-            ), f"SOC mismatch at t={t}: got {soc[t]:.4f}, expected {expected_soc[t]:.4f}"
+            assert abs(soc[t] - expected_soc[t]) < 1e-4, (
+                f"SOC mismatch at t={t}: got {soc[t]:.4f}, expected {expected_soc[t]:.4f}"
+            )
 
 
 @pytest.mark.regression
