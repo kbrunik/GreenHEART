@@ -285,6 +285,12 @@ class NRRIIronMinePerformanceComponent(PerformanceModelBaseClass):
             ):
                 mine_location = mine
                 break
+        if mine_location is None:
+            raise ValueError(
+                f"Latitude and longitude inputs do not match any known mine locations. "
+                f"Please check the inputs. Provided latitude: {inputs['latitude']}, "
+                f"longitude: {inputs['longitude']}."
+            )
 
         self.coeff_df = self.format_coeff_df(self.coeff_dataframe, mine_location)
 
@@ -629,6 +635,12 @@ class NRRIIronMineCostComponent(CostModelBaseClass):
             ):
                 mine_location = mine
                 break
+        if mine_location is None:
+            raise ValueError(
+                f"Latitude and longitude inputs do not match any known mine locations. "
+                f"Please check the inputs. Provided latitude: {inputs['latitude']}, "
+                f"longitude: {inputs['longitude']}."
+            )
 
         self.coeff_df = self.format_coeff_df(self.coeff_dataframe, mine_location)
 
