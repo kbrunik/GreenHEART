@@ -12,6 +12,30 @@ from h2integrate.core.model_baseclasses import CostModelBaseClass, PerformanceMo
 from h2integrate.tools.inflation.inflate import inflate_cpi
 
 
+MINE_LOCATIONS = {
+    "Hibbing": {"latitude": 47.53, "longitude": -92.91},
+    "Northshore": {"latitude": 47.29, "longitude": -91.25},
+    "United": {"latitude": 47.34, "longitude": -92.58},
+    "Minorca": {"latitude": 47.55, "longitude": -92.52},
+    "Tilden": {"latitude": 46.48, "longitude": -87.66},
+}
+
+
+def get_mine_from_coordinates(latitude, longitude):
+    """Return the mine matching the provided latitude and longitude."""
+    for mine, location in MINE_LOCATIONS.items():
+        if np.isclose(latitude, location["latitude"]) and np.isclose(
+            longitude, location["longitude"]
+        ):
+            return mine
+
+    raise ValueError(
+        f"Latitude and longitude inputs do not match any known mine locations. "
+        f"Please check the inputs. Provided latitude: {latitude}, "
+        f"longitude: {longitude}."
+    )
+
+
 @define(kw_only=True)
 class NRRIIronMinePerformanceConfig(BaseConfig):
     """Configuration class for NRRIIronMinePerformanceComponent.
@@ -35,28 +59,24 @@ class NRRIIronMinePerformanceConfig(BaseConfig):
     longitude: float = field(default=None)
 
     def __attrs_post_init__(self):
-        mine_locations = {
-            "Hibbing": {"latitude": 47.53, "longitude": -92.91},
-            "Northshore": {"latitude": 47.29, "longitude": -91.25},
-            "United": {"latitude": 47.34, "longitude": -92.58},
-            "Minorca": {"latitude": 47.55, "longitude": -92.52},
-            "Tilden": {"latitude": 46.48, "longitude": -87.66},
-        }
         if self.latitude is not None or self.longitude is not None:
             # check if the latitude and longitude are correct for the mine location
-            if self.mine in mine_locations:
-                correct_latitude = mine_locations[self.mine]["latitude"]
-                correct_longitude = mine_locations[self.mine]["longitude"]
-                if self.latitude != correct_latitude or self.longitude != correct_longitude:
-                    raise ValueError(
-                        f"Incorrect latitude and/or longitude for mine {self.mine}. "
-                        f"Expected ({correct_latitude}, {correct_longitude}), got "
-                        f"({self.latitude}, {self.longitude})."
-                    )
+            correct_latitude = MINE_LOCATIONS[self.mine]["latitude"]
+            correct_longitude = MINE_LOCATIONS[self.mine]["longitude"]
+            if (
+                self.latitude is None
+                or self.longitude is None
+                or not np.isclose(self.latitude, correct_latitude)
+                or not np.isclose(self.longitude, correct_longitude)
+            ):
+                raise ValueError(
+                    f"Incorrect latitude and/or longitude for mine {self.mine}. "
+                    f"Expected ({correct_latitude}, {correct_longitude}), got "
+                    f"({self.latitude}, {self.longitude})."
+                )
 
-        if self.mine in mine_locations:
-            self.latitude = mine_locations[self.mine]["latitude"]
-            self.longitude = mine_locations[self.mine]["longitude"]
+        self.latitude = MINE_LOCATIONS[self.mine]["latitude"]
+        self.longitude = MINE_LOCATIONS[self.mine]["longitude"]
 
 
 class NRRIIronMinePerformanceComponent(PerformanceModelBaseClass):
@@ -269,22 +289,8 @@ class NRRIIronMinePerformanceComponent(PerformanceModelBaseClass):
         return coeff_df
 
     def compute(self, inputs, outputs):
-        mine_locations = {
-            "Hibbing": {"latitude": 47.53, "longitude": -92.91},
-            "Northshore": {"latitude": 47.29, "longitude": -91.25},
-            "United": {"latitude": 47.34, "longitude": -92.58},
-            "Minorca": {"latitude": 47.55, "longitude": -92.52},
-            "Tilden": {"latitude": 46.48, "longitude": -87.66},
-        }
-
         # get mine location based on latitude and longitude inputs
-        mine_location = None
-        for mine, location in mine_locations.items():
-            if np.isclose(inputs["latitude"], location["latitude"]) and np.isclose(
-                inputs["longitude"], location["longitude"]
-            ):
-                mine_location = mine
-                break
+        mine_location = get_mine_from_coordinates(inputs["latitude"], inputs["longitude"])
 
         self.coeff_df = self.format_coeff_df(self.coeff_dataframe, mine_location)
 
@@ -459,28 +465,24 @@ class NRRIIronMineCostConfig(BaseConfig):
     longitude: float = field(default=None)
 
     def __attrs_post_init__(self):
-        mine_locations = {
-            "Hibbing": {"latitude": 47.53, "longitude": -92.91},
-            "Northshore": {"latitude": 47.29, "longitude": -91.25},
-            "United": {"latitude": 47.34, "longitude": -92.58},
-            "Minorca": {"latitude": 47.55, "longitude": -92.52},
-            "Tilden": {"latitude": 46.48, "longitude": -87.66},
-        }
         if self.latitude is not None or self.longitude is not None:
             # check if the latitude and longitude are correct for the mine location
-            if self.mine in mine_locations:
-                correct_latitude = mine_locations[self.mine]["latitude"]
-                correct_longitude = mine_locations[self.mine]["longitude"]
-                if self.latitude != correct_latitude or self.longitude != correct_longitude:
-                    raise ValueError(
-                        f"Incorrect latitude and/or longitude for mine {self.mine}. "
-                        f"Expected ({correct_latitude}, {correct_longitude}), got "
-                        f"({self.latitude}, {self.longitude})."
-                    )
+            correct_latitude = MINE_LOCATIONS[self.mine]["latitude"]
+            correct_longitude = MINE_LOCATIONS[self.mine]["longitude"]
+            if (
+                self.latitude is None
+                or self.longitude is None
+                or not np.isclose(self.latitude, correct_latitude)
+                or not np.isclose(self.longitude, correct_longitude)
+            ):
+                raise ValueError(
+                    f"Incorrect latitude and/or longitude for mine {self.mine}. "
+                    f"Expected ({correct_latitude}, {correct_longitude}), got "
+                    f"({self.latitude}, {self.longitude})."
+                )
 
-        if self.mine in mine_locations:
-            self.latitude = mine_locations[self.mine]["latitude"]
-            self.longitude = mine_locations[self.mine]["longitude"]
+        self.latitude = MINE_LOCATIONS[self.mine]["latitude"]
+        self.longitude = MINE_LOCATIONS[self.mine]["longitude"]
 
 
 class NRRIIronMineCostComponent(CostModelBaseClass):
@@ -613,22 +615,8 @@ class NRRIIronMineCostComponent(CostModelBaseClass):
         return coeff_df
 
     def compute(self, inputs, outputs, discrete_inputs, discrete_outputs):
-        mine_locations = {
-            "Hibbing": {"latitude": 47.53, "longitude": -92.91},
-            "Northshore": {"latitude": 47.29, "longitude": -91.25},
-            "United": {"latitude": 47.34, "longitude": -92.58},
-            "Minorca": {"latitude": 47.55, "longitude": -92.52},
-            "Tilden": {"latitude": 46.48, "longitude": -87.66},
-        }
-
         # get mine location based on latitude and longitude inputs
-        mine_location = None
-        for mine, location in mine_locations.items():
-            if np.isclose(inputs["latitude"], location["latitude"]) and np.isclose(
-                inputs["longitude"], location["longitude"]
-            ):
-                mine_location = mine
-                break
+        mine_location = get_mine_from_coordinates(inputs["latitude"], inputs["longitude"])
 
         self.coeff_df = self.format_coeff_df(self.coeff_dataframe, mine_location)
 

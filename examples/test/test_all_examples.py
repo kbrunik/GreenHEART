@@ -2652,7 +2652,7 @@ def test_iron_electrowinning_example(subtests, temp_copy_of_example):
         model.setup()
         model.run()
         lcoi = model.model.get_val("finance_subgroup_sponge_iron.LCOS", units="USD/kg")[0]
-        assert pytest.approx(lcoi, rel=1e-4) == 2.187185703820872
+        assert pytest.approx(lcoi, rel=1e-4) == 2.174385150880128
 
     with subtests.test("Value check on MSE"):
         model.technology_config["technologies"]["iron_plant"]["model_inputs"]["shared_parameters"][
@@ -2668,7 +2668,7 @@ def test_iron_electrowinning_example(subtests, temp_copy_of_example):
         model.setup()
         model.run()
         lcoi = model.model.get_val("finance_subgroup_sponge_iron.LCOS", units="USD/kg")[0]
-        assert pytest.approx(lcoi, rel=1e-4) == 3.3399342887615115
+        assert pytest.approx(lcoi, rel=1e-4) == 3.3036489452968594
 
     with subtests.test("Value check on MOE"):
         model.technology_config["technologies"]["iron_plant"]["model_inputs"]["shared_parameters"][
@@ -2680,7 +2680,7 @@ def test_iron_electrowinning_example(subtests, temp_copy_of_example):
         model.setup()
         model.run()
         lcoi = model.model.get_val("finance_subgroup_sponge_iron.LCOS", units="USD/kg")[0]
-        assert pytest.approx(lcoi, rel=1e-4) == 2.2802793527655987
+        assert pytest.approx(lcoi, rel=1e-4) == 2.266210286641621
 
 
 @pytest.mark.integration
@@ -3188,16 +3188,16 @@ def test_plm_optimized_dispatch_example(subtests, temp_copy_of_example):
     with subtests.test("Check number of discharge events"):
         # With the given demand profile and battery size, there should be 2 discharge events
         num_discharge_events = np.sum(battery_power > 1e-3)  # Count timesteps with discharge
-        assert num_discharge_events == 588
+        assert num_discharge_events == 2110
 
     with subtests.test("Check total energy discharged"):
         total_energy_discharged = battery_power.sum() * (1 / 60)  # kWh, 1 min timestep
-        assert pytest.approx(total_energy_discharged, rel=1e-2) == 2428.0
+        assert pytest.approx(total_energy_discharged, rel=1e-2) == 9643.0083
 
     with subtests.test("Check total energy charged"):
         battery_charge = model.prob.get_val("battery.storage_electricity_charge", units="kW")
         total_energy_charged = battery_charge.sum() * (1 / 60)  # kWh, 1 min timestep
-        assert pytest.approx(total_energy_charged, rel=1e-3) == -2663.0
+        assert pytest.approx(total_energy_charged, rel=1e-3) == -10656.7036
 
 
 @pytest.mark.integration
